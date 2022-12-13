@@ -50,7 +50,7 @@ export function getPlayerMove() {
 }
 
 /** Should return an outcome. Either "WIN", "LOSS" or "DRAW" */
-export function getOutcomeForRound(playerChoice, computerChoice) {
+export function getOutcomeForRound(playerChoice: "ROCK" | "PAPER" | "SCISSORS" , computerChoice: "ROCK" | "PAPER" | "SCISSORS") {
   const playerHasDrawn = playerChoice === computerChoice;
 
   if (playerHasDrawn) {
@@ -85,6 +85,16 @@ export function playOneRound() {
     outcome,
   };
 }
+type DataForRoundInterface = {
+  playerMove: string;
+    computerMove: string;
+    outcome: string;
+}
+
+type ModelInterface = {
+  playerScore: number;
+  computerScore: number;
+}
 
 /** Should return undefined/void if the loop were to stop. */
 export function playGame() {
@@ -106,7 +116,10 @@ export function playGame() {
   }
 }
 
-export function updateModel(model, dataForRound) {
+
+
+
+export function updateModel(model: ModelInterface, dataForRound: DataForRoundInterface) {
   switch (dataForRound.outcome) {
     case OUTCOME_WIN:
       return { ...model, playerScore: model.playerScore + 1 };
@@ -117,7 +130,7 @@ export function updateModel(model, dataForRound) {
   }
 }
 
-export function showProgressInConsole(dataForRound, model) {
+export function showProgressInConsole(dataForRound: DataForRoundInterface, model: ModelInterface) {
   console.table([
     {
       "Your choice": dataForRound.playerMove,
